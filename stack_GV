@@ -1,0 +1,88 @@
+// stack implementation using array with global variable
+
+#include<stdio.h>
+# define MAX 50
+int top=-1;
+
+int push(int st[],int value)
+{
+    if(top == MAX-1){
+        printf("stack overflow \n");
+        return 0;
+    }
+else
+ {
+    top++;
+    st[top]=value;
+ }
+}
+
+void pop(int st[])
+{
+    if(top==-1)
+    {
+        printf("stack underflow\n");
+    }
+    else
+    {
+        printf("\t %d is the popped value", st[top]);
+        top--;
+    }   
+}
+
+void display( int st[])
+{
+    if(top==-1)
+        printf("stack underflow");
+    else
+        {
+            for(int i=top;i>=0;i--)
+            {
+            printf("%d ",st[i]);
+            }
+        }
+}
+
+int main()
+{
+
+int st[MAX];
+int value, choice;
+
+do{
+    printf("\t\n**MENU**\n");
+    printf("\t1.for  push\n");
+    printf("\t2. for pop\n");
+    printf("\t3. for display\n");
+    printf("\t4. EXIT\n");
+
+    printf("\tENTER YOUR CHOICE:\n");
+    scanf("%d", &choice);
+
+    switch(choice)
+    {
+        case 1:
+        printf("\tenter the value:\n");
+        scanf("%d",&value);
+        push(st, value);
+        break;
+
+        case 2:
+            pop(st);
+            break;
+
+        case 3:
+            printf("\tthe stack is:\n");
+            display(st);
+        break;
+
+        case 4:
+            printf("\tEXIT\n\n");
+    }
+        }
+        while(choice!=4);
+        
+        printf("\twrong input other than 1 2 3 4............");
+        
+    return 0;
+}
