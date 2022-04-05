@@ -1,0 +1,185 @@
+//stack using linked list without using global variable
+#include <stdio.h>
+#include <stdlib.h>
+
+//user defined data type node
+typedef struct node
+{
+    int info;
+    struct node *link;
+}node;
+
+
+
+void push(node **top,int value);
+int pop(node **top);
+void display(node **top);
+int Top(node **top);
+int replaceTop(node **top,int value);
+
+
+int main()    //main function
+{
+    int choice;
+    node *top=NULL;
+    printf("\n\n************PROGRAM STARTED************\n\n");
+    while(1)
+    {
+        char *s="OPERATION PERFORMED SUCCESSFULLY";
+        printf("\n\n*****************************\n\n");
+        printf("YOU CAN PERFORM FOLLOWING OPERATIONS...........\n\n");
+        printf("\n____MENU____\n");
+        printf("1.PUSH\n");
+        printf("2.POP\n");
+        printf("3.DISPLAY\n");
+        printf("4.GET TOP\n");
+        printf("5.REPLACE VALUE AT TOP\n");
+        printf("6.EXIT\n");
+        printf("\nEnter your choice:");
+        scanf("%d",&choice);
+
+        switch(choice)
+        {
+            case 1:
+            {
+                printf("Enter element to be pushed:");
+                int value;
+                scanf("%d",&value);
+                push(&top,value);
+                break;
+            }
+            case 2:
+            {
+                int value=pop(&top);
+                if(value!=-1)
+                {
+                    printf("Poped value is %d\n",value);
+                }
+                break;
+            }
+
+            case 3:
+            {
+                display(&top);
+                break;
+            }
+
+            case 4:
+            {
+                int value=Top(&top);
+                if(value!=-1)
+                {
+                    printf("Value at top of the stack is %d\n",value);
+                }
+                break;
+            }
+
+            case 5:
+            {
+                printf("Enter the new value:");
+                int value1;
+                scanf("%d",&value1);
+                int value2=replaceTop(&top,value1);
+                if(value2!=-1)
+                {
+                    printf("Value replaced is %d\n",value2);
+                }
+                break;
+            }
+
+            case 6:
+            {
+                printf("\n\n*****************************\n\n");
+                printf("                                   PROGRAM FINISHED                                        ");
+                printf("\n\n*****************************\n\n");
+                exit(0);
+            }
+
+            default:   s="        INVALID CHOICE         ";
+        }
+         printf("\n\n*****************************\n\n");
+         printf("%s",s);
+
+    }
+    return 0;
+}
+
+void push(node **top,int value)
+{
+    //function to insert value in stack
+    node temp=(node)malloc(sizeof(node));
+
+    if(temp==NULL)         //checking whether memory allocated to temp
+    {
+        printf("\nStack Overflow\n");
+        return;
+    }
+
+    temp->info=value;
+    temp->link=NULL;
+
+    if(*top==NULL)       //checking whether temp is first element in stack
+    {
+        *top=temp;
+        return;
+    }
+
+    temp->link=*top;
+    *top=temp;
+
+}
+
+int pop(node **top)
+{
+    //function to delete value from stack top and return deleted value
+    if(*top==NULL)
+    {
+        printf("\nStack Underflow, Stack is Empty");
+        return -1;
+    }
+    node *temp=*top;
+    *top=temp->link;
+    int i=temp->info;
+    free(temp);
+    return i;
+}
+
+void display(node **top)
+{
+    //function to display values in stack
+    if(*top==NULL)
+    {
+        printf("\nStack Underflow, Stack is Empty");
+        return;
+    }
+    node *q;
+    q=*top;
+    printf("Stack is: ");
+    while(q!=NULL)
+    {
+        printf("%d ",q->info);
+        q=q->link;
+        
+    }
+    printf("\n");
+}
+
+int Top(node **top)
+{
+    //function to return top most value of stack
+    if(*top==NULL)
+    {
+        printf("\nStack Underflow, Stack is Empty");
+        return -1;
+    }
+    return (*top)->info;
+}
+
+int replaceTop(node **top,int value)
+{
+   //function to update topmost value of stack
+    int value1=pop(top );
+    if(value1!=-1)
+    push(top,value);
+    return value1;
+}
