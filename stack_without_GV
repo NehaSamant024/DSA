@@ -1,0 +1,104 @@
+// stack implement without global variable....
+
+#include<stdio.h>
+# define MAX 50
+
+void push(int st[], int value, int *top)
+{
+    if(*top==MAX-1)
+    {
+        printf("stack overflow");
+    }
+    else
+    {
+        (*top)++;
+        st[*top]= value;
+        
+    }
+}
+
+void pop(int st[], int *top)
+{
+    if(*top==-1)
+    {
+        printf("the stack is empty");
+    }
+    else
+    {
+    printf("the deleted element is %d\n", st[*top]);
+    (*top)--;
+    }
+}
+
+void display(int st[], int *top)
+{
+    if(*top==-1)
+    {
+        printf("The stack is empty");
+    }
+    else
+    {
+        for(int i=*top;i>=0;i--)
+        {
+            printf("%d\t\n", st[i]);
+        }
+    }
+}
+
+void peek(int st[], int *top)
+{
+    if(*top==-1)
+    {
+        printf("The stack is empty\n");
+    }
+    else
+    {
+        printf("the peek element is %d", st[*top]);
+    }
+}
+
+int main()
+{
+    int st[MAX];
+    int choice,  value;
+    int top=-1;
+    do
+    {
+        printf("\t\t***MENU*\n");
+        printf("1. for push\n2. for pop\n3. for display\n4. for peek\n5. exit\n\n");
+
+        printf("Enter your choice:\n");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+                printf("Enter the value\n");
+                scanf("%d",&value);
+                push(st ,value,&top);
+                break;
+
+            case 2:
+                pop(st,&top);
+                break;
+            case 3:
+                printf("the items are:\n");
+                display(st,&top);
+                break;
+
+            case 5:
+                printf("EXIT\n");
+                break;
+
+            case 4:
+                peek(st,&top);
+                break;
+
+            default:
+                printf("Wrong input");
+                break;
+        }
+    }
+    while(choice!=4);
+        return 0;
+}
